@@ -11,8 +11,8 @@ def get_blob_names(
         if account_url is None or credential is None:
             logging.error('Both account url and credential must be provided!')
             return
-        if not isinstance(credential, DefaultAzureCredential):
-            logging.error('You must use a valid Azure credential')
+        # if not isinstance(credential, DefaultAzureCredential):
+        #    logging.error('You must use a valid Azure credential')
         container = ContainerClient(
             account_url=account_url,
             container_name=container_name,
@@ -42,8 +42,8 @@ def get_blob(
         if account_url is None or credential is None:
             logging.error('Both account url and credential must be provided!')
             return
-        if not isinstance(credential, DefaultAzureCredential):
-            logging.error('You must use a valid Azure credential')
+        # if not isinstance(credential, DefaultAzureCredential):
+        #    logging.error('You must use a valid Azure credential')
         blob = BlobClient(
             account_url=account_url,
             credential=credential,
@@ -96,8 +96,8 @@ def save_to_blob(
         if account_url is None or credential is None:
             logging.error('Both account url and credential must be provided!')
             return
-        if not isinstance(credential, DefaultAzureCredential):
-            logging.error('You must use a valid Azure credential!')
+        # if not isinstance(credential, DefaultAzureCredential):
+        #    logging.error('You must use a valid Azure credential!')
         blob = BlobClient(
             account_url=account_url,
             credential=credential, 
