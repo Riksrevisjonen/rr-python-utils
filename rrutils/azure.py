@@ -58,12 +58,13 @@ def get_blob(
             conn_str=conn_str,
             container_name=container_name, 
             blob_name=blob_name)
-    if blob.exists:     
+    if blob.exists():     
         blob_data = blob.download_blob()
         blob_data = blob_data.readall()
         return blob_data
     else: 
-        logging.error('Blob does not exist.')  
+        logging.warning('Blob does not exist.') 
+        return blob 
 
 def save_to_blob(
         data: object, 
