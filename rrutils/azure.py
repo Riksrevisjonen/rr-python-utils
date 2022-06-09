@@ -1,12 +1,64 @@
 from azure.storage.blob import BlobClient, ContainerClient
 import logging
 
+
+def check_blob(
+    container_name: str,
+    blob_name: str,
+    account_url: str = None,
+    credential: object = None,
+    conn_str: str = None,
+    ):
+    """ Check blob
+    
+    Check if an Azure blob exists. 
+
+    Args: 
+        container_name: Blob container 
+        blob_name: Blob name
+        account_url: Account URL. Use together with credential
+        credential: Credential. Use together with account_url 
+        conn_str: Connection string     
+    """
+    if conn_str == None:
+        if account_url is None or credential is None:
+            logging.error('Both account url and credential must be provided!')
+            return
+        # if not isinstance(credential, DefaultAzureCredential):
+        #     logging.error('You must use a valid Azure credential')
+        blob = BlobClient(
+            account_url=account_url,
+            credential=credential,
+            container_name=container_name,
+            blob_name=blob_name
+        )
+    else:
+        if conn_str is None:
+            logging.error('Connection string cannot be empty!')
+            return
+        blob = BlobClient.from_connection_string(
+            conn_str=conn_str,
+            container_name=container_name, 
+            blob_name=blob_name)
+    return blob.exists()
+
+
 def get_blob_names(
     container_name: str, 
     account_url: str = None, 
     credential: object = None, 
     conn_str: str = None): 
-    """Get the names of all blobs in an Azure blob container"""
+    """ Get blob names
+    
+    Get the names of all blobs in an Azure blob container. 
+    
+    Args: 
+        container_name: Blob container 
+        account_url: Account URL. Use together with credential
+        credential: Credential. Use together with account_url 
+        conn_str: Connection string 
+    
+    """
     if conn_str is None: 
         if account_url is None or credential is None:
             logging.error('Both account url and credential must be provided!')
@@ -37,7 +89,17 @@ def get_blob(
     credential: object = None,
     conn_str: str = None,
     ):
-    """Download an Azure blob object into memory"""
+    """ Get blob
+    
+    Download an Azure blob object into memory.
+
+    Args: 
+        container_name: Blob container 
+        blob_name: Blob name
+        account_url: Account URL. Use together with credential
+        credential: Credential. Use together with account_url 
+        conn_str: Connection string 
+    """
     if conn_str == None:
         if account_url is None or credential is None:
             logging.error('Both account url and credential must be provided!')
@@ -75,7 +137,6 @@ def save_to_blob(
         conn_str: str = None, 
         verbose: bool = False, 
         **kwargs):
-
     """ Save to blob
     
     Saves a data object to an Azure blob storage.
