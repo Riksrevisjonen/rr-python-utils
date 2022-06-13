@@ -240,8 +240,8 @@ def save_netcdf_to_blob(
             encoding = {var: comp for var in data.data_vars}
             # Save to tempfile 
             data.to_netcdf(tmp.name, encoding = encoding, engine = 'netcdf4')
-            with open(tmp.name, 'rb') as data:
-                blob.upload_blob(data, kwargs)
+            with open(tmp.name, 'rb') as d:
+                blob.upload_blob(d, **kwargs)
             tmp.close()
     except:
         logging.error('An error occured while trying to upload {0}'.format(blob_name))
