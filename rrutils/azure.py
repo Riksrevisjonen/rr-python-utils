@@ -1,5 +1,6 @@
 from azure.storage.blob import BlobClient, ContainerClient
 from tempfile import NamedTemporaryFile
+import xarray
 import logging
 
 
