@@ -9,5 +9,5 @@ setup(
    url='https://github.com/Riksrevisjonen/rr-python-utils',
    license='MIT',
    packages=['rrutils'],  
-   install_requires=['wheel', 'azure-storage-blob'], 
+   install_requires=['wheel', 'azure-storage-blob', 'xarray', 'netcdf4'], 
 )
