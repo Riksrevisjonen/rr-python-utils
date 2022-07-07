@@ -176,7 +176,7 @@ def save_to_blob(
             container_name=container_name,
             blob_name=blob_name)
     if blob.exists():
-        logging.warn('Blob {0} already exists. Skipping upload'.format(blob_name))
+        logging.info('Blob {0} already exists. Skipping upload'.format(blob_name))
     try: 
         if verbose: logging.info('Uploading blob...')
         blob.upload_blob(data, **kwargs) 
