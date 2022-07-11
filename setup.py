@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
    name='rrutils',
-   version='0.0.1',
+   version='0.0.2',
    description='A collection of Python helper modules for The Office of the Auditor General of Norway (OAGN).',
    author='Aleksander Eilertsen',
    author_email='ale@rikrevisjonen.no',
