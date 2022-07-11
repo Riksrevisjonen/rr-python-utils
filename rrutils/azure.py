@@ -1,7 +1,42 @@
 from azure.storage.blob import BlobClient, ContainerClient
-#from tempfile import NamedTemporaryFile
-#import xarray
+from tempfile import NamedTemporaryFile
 import logging
+import pathlib
+
+def read_blob(
+    blob_name: str,
+    container_name: str,
+    account_url: str,
+    credential: str,
+    function):  
+
+    """ Read file from blob
+
+    Reads the contents of an Azure blob by first writing a
+    temporary file to disk. This is useful if the the object 
+    cannot be directly read into memory. 
+
+    Args: 
+        blob_name: Blob name
+        container_name: Blob container 
+        account_url: Account URL. Use together with credential
+        credential: Credential. Use together with account_url 
+        funtion: Function used to load the data
+    """
+
+    # Get blob
+    blob = get_blob(
+        blob_name = blob_name,
+        container_name = container_name, 
+        account_url = account_url,
+        credential = credential)
+    # Load file
+    ext = pathlib.Path(blob_name).suffix
+    with NamedTemporaryFile(suffix = ext) as tmp: 
+        tmp.write(blob)
+        data = function(tmp.name)
+        tmp.close()
+    return data
 
 
 def check_blob(
