@@ -3,6 +3,7 @@ from tempfile import NamedTemporaryFile
 import logging
 import pathlib
 
+
 def read_blob(
     blob_name: str,
     container_name: str,
